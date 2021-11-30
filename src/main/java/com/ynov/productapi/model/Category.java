@@ -67,5 +67,17 @@ public class Category {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+	
+	// Helper methods
+	public void addProduct(Product product) {
+		this.products.add(product);
+		product.getCategories().add(this);
+	}
+	
+	public void removeProduct(Product product) {
+		this.products.remove(product);
+		product.getCategories().remove(this);
+	}
+	
 
 }

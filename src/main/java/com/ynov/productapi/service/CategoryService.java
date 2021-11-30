@@ -1,6 +1,7 @@
 package com.ynov.productapi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,14 @@ public class CategoryService {
 	
 	public List<CategoryFull> getCategories() {
 		return categoryTransformer.transform(categoryRepository.findAll());
+	}
+
+	public Optional<Category> getCategory(Integer idCategory) {
+		return categoryRepository.findById(idCategory);
+	}
+	
+	public Category saveCategory(Category category) {
+		return categoryRepository.save(category);
 	}
 	
 }
