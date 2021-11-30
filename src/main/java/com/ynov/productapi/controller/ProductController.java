@@ -1,5 +1,6 @@
 package com.ynov.productapi.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ynov.productapi.model.Product;
 import com.ynov.productapi.service.ProductService;
+import com.ynov.productapi.transformer.product.ProductFull;
 
 @RestController
 public class ProductController {
@@ -24,7 +26,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/product")
-	public Iterable<Product> getProducts() {
+	public List<ProductFull> getProducts() {
 		return productService.getProducts();
 	}
 

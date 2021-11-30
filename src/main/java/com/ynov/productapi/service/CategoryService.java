@@ -7,19 +7,20 @@ import org.springframework.stereotype.Service;
 
 import com.ynov.productapi.model.Category;
 import com.ynov.productapi.repository.CategoryRepository;
-import com.ynov.productapi.transformer.CategoryFull;
-import com.ynov.productapi.transformer.CategoryTransformer;
+import com.ynov.productapi.transformer.category.CategoryFull;
+import com.ynov.productapi.transformer.category.CategoryTransformer;
 
 @Service
 public class CategoryService {
 
 	@Autowired
+	private CategoryTransformer categoryTransformer;
+	
+	@Autowired
 	private CategoryRepository categoryRepository;
 	
 	public List<CategoryFull> getCategories() {
-		Iterable<Category> categories = categoryRepository.findAll();
-		CategoryTransformer transformer = new CategoryTransformer();
-		return transformer.transform(categories);
+		return categoryTransformer.transform(categoryRepository.findAll());
 	}
 	
 }

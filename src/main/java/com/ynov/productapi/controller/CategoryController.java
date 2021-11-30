@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ynov.productapi.service.CategoryService;
-import com.ynov.productapi.transformer.CategoryFull;
+import com.ynov.productapi.transformer.category.CategoryFull;
 
 @RestController
 public class CategoryController {

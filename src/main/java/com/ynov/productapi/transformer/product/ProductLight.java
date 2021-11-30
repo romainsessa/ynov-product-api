@@ -1,11 +1,11 @@
-package com.ynov.productapi.transformer;
+package com.ynov.productapi.transformer.product;
 
 public class ProductLight {
 
-	private Integer id;
-	private String name;
-	private String description;
-	private Integer cost;
+	protected Integer id;
+	protected String name;
+	protected String description;
+	protected Integer cost;
 	
 	public Integer getId() {
 		return id;
