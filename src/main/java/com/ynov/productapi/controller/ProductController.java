@@ -31,16 +31,16 @@ public class ProductController {
 	}
 
 	@GetMapping("/product/{id}")
-	public ResponseEntity<Product> getProduct(@PathVariable("id") Integer id) {
-		Optional<Product> p = productService.getProduct(id);
-		if (p.isPresent()) {
-			return new ResponseEntity<Product>(p.get(), HttpStatus.OK);
-		}
-		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<ProductFull> getProduct(@PathVariable("id") Integer id) {
+		ProductFull p = productService.getProduct(id);
+//		if (p.isPresent()) {
+			return new ResponseEntity<ProductFull>(p, HttpStatus.OK);
+//		}
+//		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 	}
 
 	@PostMapping("/product")
-	public Product addProduct(@RequestBody Product product) {
+	public ProductFull addProduct(@RequestBody Product product) {
 		return productService.upsert(product);
 	}
 
@@ -50,33 +50,33 @@ public class ProductController {
 	}
 
 	@PutMapping("/product")
-	public Product replaceProduct(@RequestBody Product product) {
+	public ProductFull replaceProduct(@RequestBody Product product) {
 		return productService.upsert(product);
 	}
 
-	@PatchMapping("/product")
-	public ResponseEntity<Product> partialReplaceProduct(@RequestBody Product product) {
-		Optional<Product> p = productService.getProduct(product.getId());
-		if(p.isPresent()) {
-		Product existingProduct = p.get();
-		
-		if(product.getName() != null 
-				&& !product.getName().equals(existingProduct.getName())) {
-			existingProduct.setName(product.getName());
-		}
-		if(product.getDescription() != null 
-				&& !product.getDescription().equals(existingProduct.getDescription())) {
-			existingProduct.setDescription(product.getDescription());
-		}
-		if(product.getCost() != null 
-				&& !product.getCost().equals(existingProduct.getCost())) {
-			existingProduct.setCost(product.getCost());
-		}
-		existingProduct = productService.upsert(existingProduct);
-		return new ResponseEntity<Product>(existingProduct, HttpStatus.OK);
-		}
-		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-	}
+//	@PatchMapping("/product")
+//	public ResponseEntity<Product> partialReplaceProduct(@RequestBody Product product) {
+//		Optional<Product> p = productService.getProduct(product.getId());
+//		if(p.isPresent()) {
+//		Product existingProduct = p.get();
+//		
+//		if(product.getName() != null 
+//				&& !product.getName().equals(existingProduct.getName())) {
+//			existingProduct.setName(product.getName());
+//		}
+//		if(product.getDescription() != null 
+//				&& !product.getDescription().equals(existingProduct.getDescription())) {
+//			existingProduct.setDescription(product.getDescription());
+//		}
+//		if(product.getCost() != null 
+//				&& !product.getCost().equals(existingProduct.getCost())) {
+//			existingProduct.setCost(product.getCost());
+//		}
+//		existingProduct = productService.upsert(existingProduct);
+//		return new ResponseEntity<Product>(existingProduct, HttpStatus.OK);
+//		}
+//		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+//	}
 	
 	@GetMapping("/product/filter/{name}")
 	public Iterable<Product> getProductsByName(@PathVariable("name") String name) {

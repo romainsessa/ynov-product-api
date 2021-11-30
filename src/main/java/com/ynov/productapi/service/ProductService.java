@@ -20,12 +20,15 @@ public class ProductService {
 	@Autowired
 	private ProductTransformer productTransformer;
 	
-	public Product upsert(Product product) {
-		return productRepository.save(product);
+	public ProductFull upsert(Product product) {
+		return productTransformer.transform(
+				productRepository.save(product));
 	}
 	
-	public Optional<Product> getProduct(Integer id) {
-		return productRepository.findById(id);
+	public ProductFull getProduct(Integer id) {
+		return productTransformer.transform(		
+				productRepository.findById(id).get()
+				);
 	}
 	
 	public List<ProductFull> getProducts() {

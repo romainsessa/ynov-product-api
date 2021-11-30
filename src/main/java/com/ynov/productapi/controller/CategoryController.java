@@ -29,18 +29,18 @@ public class CategoryController {
 		return categoryService.getCategories();
 	}
 	
-	@PostMapping("/category/{idCategory}/{idProduct}")
-	public void addProductToCategory(
-			@PathVariable(name = "idCategory") Integer idCategory,
-			@PathVariable(name = "idProduct") Integer idProduct) {
-		
-		Category category = categoryService.getCategory(idCategory).get();
-		Product product = productService.getProduct(idProduct).get();
-		
-		category.addProduct(product);
-		
-		categoryService.saveCategory(category);
-	
-	}
+//	@PostMapping("/category/{idCategory}/{idProduct}")
+//	public void addProductToCategory(
+//			@PathVariable(name = "idCategory") Integer idCategory,
+//			@PathVariable(name = "idProduct") Integer idProduct) {
+//		
+//		Category category = categoryService.getCategory(idCategory).get();
+//		Product product = productService.getProduct(idProduct).get();
+//		
+//		category.addProduct(product);
+//		
+//		categoryService.saveCategory(category);
+//	
+//	}
 	
 }
