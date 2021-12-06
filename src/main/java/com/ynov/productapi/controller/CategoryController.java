@@ -1,8 +1,6 @@
 package com.ynov.productapi.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,18 +27,18 @@ public class CategoryController {
 		return categoryService.getCategories();
 	}
 	
-//	@PostMapping("/category/{idCategory}/{idProduct}")
-//	public void addProductToCategory(
-//			@PathVariable(name = "idCategory") Integer idCategory,
-//			@PathVariable(name = "idProduct") Integer idProduct) {
-//		
-//		Category category = categoryService.getCategory(idCategory).get();
-//		Product product = productService.getProduct(idProduct).get();
-//		
-//		category.addProduct(product);
-//		
-//		categoryService.saveCategory(category);
-//	
-//	}
+	@PostMapping("/category/{idCategory}/{idProduct}")
+	public void addProductToCategory(
+			@PathVariable(name = "idCategory") Integer idCategory,
+			@PathVariable(name = "idProduct") Integer idProduct) {
+		
+		Category category = categoryService.getEntityCategory(idCategory).get();
+		Product product = productService.getEntityProduct(idProduct).get();
+		
+		category.addProduct(product);
+		
+		categoryService.saveCategory(category);
+	
+	}
 	
 }

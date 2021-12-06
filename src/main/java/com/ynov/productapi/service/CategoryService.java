@@ -24,7 +24,7 @@ public class CategoryService {
 		return categoryTransformer.transform(categoryRepository.findAll());
 	}
 
-	public Optional<Category> getCategory(Integer idCategory) {
+	public Optional<Category> getEntityCategory(Integer idCategory) {
 		return categoryRepository.findById(idCategory);
 	}
 	

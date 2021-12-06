@@ -36,7 +36,20 @@ public class CategoryTransformer {
 		}
 		return categoriesFull;
 	}
+
+	public List<Category> untransform(List<CategoryLight> categoriesLight) {
+		List<Category> categories = new ArrayList<>();
+		for(CategoryLight categoryL : categoriesLight) {
+			categories.add(untransform(categoryL));
+		}
+		return categories;
+	}
 	
-	
+	public Category untransform(CategoryLight categoryL) {
+		Category category = new Category();
+		category.setCategoryId(categoryL.getCategoryId());
+		category.setName(categoryL.getName());
+		return category;
+	}	
 	
 }

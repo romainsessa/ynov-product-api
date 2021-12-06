@@ -1,8 +1,6 @@
 package com.ynov.productapi.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ynov.productapi.exceptions.NotFoundException;
 import com.ynov.productapi.model.Product;
 import com.ynov.productapi.service.ProductService;
 import com.ynov.productapi.transformer.product.ProductFull;
@@ -32,11 +31,12 @@ public class ProductController {
 
 	@GetMapping("/product/{id}")
 	public ResponseEntity<ProductFull> getProduct(@PathVariable("id") Integer id) {
-		ProductFull p = productService.getProduct(id);
-//		if (p.isPresent()) {
+		try {
+			ProductFull p = productService.getProduct(id);
 			return new ResponseEntity<ProductFull>(p, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+		} catch (NotFoundException e) {
+			return new ResponseEntity<ProductFull>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping("/product")
@@ -54,32 +54,29 @@ public class ProductController {
 		return productService.upsert(product);
 	}
 
-//	@PatchMapping("/product")
-//	public ResponseEntity<Product> partialReplaceProduct(@RequestBody Product product) {
-//		Optional<Product> p = productService.getProduct(product.getId());
-//		if(p.isPresent()) {
-//		Product existingProduct = p.get();
-//		
-//		if(product.getName() != null 
-//				&& !product.getName().equals(existingProduct.getName())) {
-//			existingProduct.setName(product.getName());
-//		}
-//		if(product.getDescription() != null 
-//				&& !product.getDescription().equals(existingProduct.getDescription())) {
-//			existingProduct.setDescription(product.getDescription());
-//		}
-//		if(product.getCost() != null 
-//				&& !product.getCost().equals(existingProduct.getCost())) {
-//			existingProduct.setCost(product.getCost());
-//		}
-//		existingProduct = productService.upsert(existingProduct);
-//		return new ResponseEntity<Product>(existingProduct, HttpStatus.OK);
-//		}
-//		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
-//	}
-	
+	@PatchMapping("/product")
+	public ResponseEntity<ProductFull> partialReplaceProduct(@RequestBody Product product) {
+		try {
+			ProductFull existingProduct = productService.getProduct(product.getId());
+			if (product.getName() != null && !product.getName().equals(existingProduct.getName())) {
+				existingProduct.setName(product.getName());
+			}
+			if (product.getDescription() != null
+					&& !product.getDescription().equals(existingProduct.getDescription())) {
+				existingProduct.setDescription(product.getDescription());
+			}
+			if (product.getCost() != null && !product.getCost().equals(existingProduct.getCost())) {
+				existingProduct.setCost(product.getCost());
+			}
+			existingProduct = productService.upsert(existingProduct);
+			return new ResponseEntity<ProductFull>(existingProduct, HttpStatus.OK);
+		} catch (NotFoundException e) {
+			return new ResponseEntity<ProductFull>(HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@GetMapping("/product/filter/{name}")
-	public Iterable<Product> getProductsByName(@PathVariable("name") String name) {
+	public Iterable<ProductFull> getProductsByName(@PathVariable("name") String name) {
 		return productService.getProductsByName(name);
 	}
 
