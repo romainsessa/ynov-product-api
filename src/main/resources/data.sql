@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS users;
  
 CREATE TABLE products (
   id INT AUTO_INCREMENT  PRIMARY KEY,
@@ -48,3 +49,15 @@ INSERT INTO category_product (category_id, product_id) VALUES
 	(4,1),
 	(4,2),
 	(4,3);
+	
+CREATE TABLE users (
+	id INT AUTO_INCREMENT  PRIMARY KEY,
+	username VARCHAR(255),
+	password VARCHAR(255)
+);
+
+INSERT INTO users (username, password) VALUES
+	('user',
+	'$2a$12$3QJUKRUlH6eOldgAeEhBXuVXnFYcdG9L6TeJ8Dtw726lmYrFPomgW'),
+	('admin',
+	'$2a$12$hJuHwAbUTK77f5iv51yRLeUjot6rL4pwzJNC3u4K2wQSSho1CjBla');

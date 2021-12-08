@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ynov.productapi.model.Comment;
@@ -14,6 +15,7 @@ import com.ynov.productapi.service.ProductService;
 import com.ynov.productapi.transformer.product.ProductFull;
 
 @RestController
+@RequestMapping("api/private")
 public class CommentController {
 	
 	@Autowired
