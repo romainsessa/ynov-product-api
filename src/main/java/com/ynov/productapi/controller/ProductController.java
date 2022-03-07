@@ -81,5 +81,11 @@ public class ProductController {
 	public Iterable<ProductFull> getProductsByName(@PathVariable("name") String name) {
 		return productService.getProductsByName(name);
 	}
+	
+	private void display(List<ProductFull> products) {
+		for (ProductFull productFull : products) {
+			System.out.println(productFull.getName());
+		}
+	}
 
 }

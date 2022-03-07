@@ -25,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
+		// Ligne 40, 43, 44 à décommenter pour l'utilisation de la Token Auth et commenter ligne 39		
 		
 		http = http.cors().and().csrf().disable();
 		
@@ -36,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers("/api/public/**").permitAll()
 			.antMatchers("/api/private/**").hasRole("USER")
-			//.anyRequest().authenticated().and().httpBasic(); // A décommenter pour l'utilisation de la Basic Auth
-			.anyRequest().authenticated();
-		
-		http.addFilterBefore(jwtTokenFilter, 
-				UsernamePasswordAuthenticationFilter.class); // Utilisation de la Bearer Token Auth
+			.anyRequest().authenticated().and().httpBasic(); // Utilisation de la Basic Auth
+			//.anyRequest().authenticated();
+			
+		//http.addFilterBefore(jwtTokenFilter,  
+		//		UsernamePasswordAuthenticationFilter.class); // Utilisation de la Bearer Token Auth  
 	}
 
 	@Bean
